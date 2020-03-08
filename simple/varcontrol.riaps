@@ -1,0 +1,44 @@
+// RIAPS OpenDSS Interface
+
+app VarControl {
+    message CommandReq;
+    message CommandRep;
+    message Measurement;
+     
+    device OpenDSS {
+		ans command : (CommandReq, CommandRep);
+		pub data : Measurement;
+		inside relay;
+    }
+    
+    component Controller (sensor,actuator) {
+    	timer trigger;					
+    	sub data : Measurement;
+    	qry command : (CommandReq, CommandRep);
+    }
+
+	actor ControllerActor(sensor,actuator) {
+		local Measurement, CommandReq, CommandRep;
+		{
+			opendss : OpenDSS;
+			controller : Controller(sensor=sensor,actuator=actuator);
+		}
+	}
+	
+	actor ControllerActor1(sensor,actuator) {
+		local Measurement, CommandReq, CommandRep;
+		{
+			opendss : OpenDSS;
+			controller : Controller(sensor=sensor,actuator=actuator);
+		}
+	}
+	
+	actor ControllerActor2(sensor,actuator) {
+		local Measurement, CommandReq, CommandRep;
+		{
+			opendss : OpenDSS;
+			controller : Controller(sensor=sensor,actuator=actuator);
+		}
+	}
+
+} 

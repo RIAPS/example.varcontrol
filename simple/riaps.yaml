@@ -1,0 +1,9 @@
+!!python/object:riaps.utils.appdesc.AppDescriptor
+home: /home/riaps/git/example.varcontrol/simple
+host: '3232235876'
+hosts:
+- 192.168.1.100
+mac: 0800272d857c
+network: {}
+sha: 0800272d857c
+url: file:////home/riaps/git/example.varcontrol/simple
