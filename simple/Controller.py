@@ -15,8 +15,7 @@ class Controller(Component):
         self.aObj,self.aName,self.aAttr = actuator.split('.')
         self.control_counter = 0
         self.control_period = random.randint(20,30)
-        self.control_duty = random.randint(10,20)
-        self.pending = 0 
+        self.control_duty = random.randint(10,20) 
         self.first = True
         self.lastValue = None
     
@@ -29,19 +28,17 @@ class Controller(Component):
         self.logger.info("on_trigger()")
         _discard = self.trigger.recv_pyobj()
         self.trigger.halt()
-        if self.pending == 0: 
-            msg = ['sub', (self.sObj,self.sName,self.sAttr)]
-            try:
-                self.command.send_pyobj(msg)
-                self.logger.info("on_trigger: msg=%s" % str(msg))
-            except PortError as e:
-                self.logger.info("send exception : error code %s" % e.errno)
-            else:
-                self.pending += 1
+        msg = ['sub', (self.sObj,self.sName,self.sAttr)]
+        try:
+            self.command.send_pyobj(msg)
+            self.logger.info("on_trigger: msg=%s" % str(msg))
+        except PortError as e:
+            self.logger.info("send exception : error code %s" % e.errno)
+        else:
+            self.trigger.halt()
     
     def on_command(self):
         _msg = self.command.recv_pyobj()
-        self.pending -= 1 
         self.logger.info("on_command(): resp = %s" % str(_msg))
         if len(_msg) == 0:
             self.logger.info('... no response')
@@ -50,22 +47,18 @@ class Controller(Component):
             kvar = float(_msg[3])
             value = self.control()
             if value == '1':
-                set = kvar/2 
+                new_val = kvar/2 
             elif value == '0':
-                set = kvar*2 
+                new_val = kvar*2 
             if value != self.lastValue:
-                while self.pending > 0: self.on_command()
                 # publish interface
-                cmd = ['pub', (self.aObj,self.aName,self.aAttr,set)]
+                cmd = ['pub', (self.aObj,self.aName,self.aAttr,new_val)]
                 self.logger.info("command = %s" % str(cmd))
                 try:
                     self.command.send_pyobj(cmd)
-                    self.pending += 1
                     self.lastValue = value
                 except PortError as e:
                     self.logger.info("send exception : error code %s" % e.errno)
-                else:
-                    self.trigger.halt()
     
     def control(self):  
         value = '1' if self.control_counter < self.control_duty else '0'
@@ -80,9 +73,6 @@ class Controller(Component):
             self.command.send_pyobj(querycmd)
         except PortError as e:
             self.logger.info("send exception : error code %s" % e.errno)
-        else:
-            self.pending += 1
-        
         
     def __destroy__(self):
         self.logger.info("Controller.__destroy__()")
