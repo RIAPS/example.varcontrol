@@ -1,5 +1,5 @@
 simple/*.key
-simplee/*.cert
+simple/*.cert
 simple/*.dot
 **/*.json
 *.project
