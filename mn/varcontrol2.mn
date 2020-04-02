@@ -1,0 +1,3 @@
+ h1 xterm -T "Control"  -e ./riaps-mn.ctrl &
+ h1 xterm -T h1 -e ./riaps-mn.node &
+ h2 xterm -T h2 -e ./riaps-mn.node &

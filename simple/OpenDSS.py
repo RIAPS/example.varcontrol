@@ -93,9 +93,10 @@ class DSSAClient(threading.Thread):
                 for host,port in addrs:
                     try:
                         self.conn = rpyc.connect(host,port,
-                                                 config = {"allow_public_attrs" : True})
+                                                 config = {"allow_public_attrs" : True, 
+                                                           "sync_request_timeout" : 60})
                     except socket.error as e:
-                        print("%s.%s: %s" %(str(host),str(port),str(e)))
+                        self.logger.info("%s.%s: %s" %(str(host),str(port),str(e)))
                         pass
                     if self.conn: break
             except DiscoveryError:

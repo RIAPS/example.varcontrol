@@ -1,0 +1,6 @@
+*.key
+*.cert
+*.dot
+*.json
+*.project
+Xterm.*

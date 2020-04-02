@@ -1,0 +1,6 @@
+// Deploy on mininet
+app VarControl {
+	on (192.168.57.1) ControllerActor(sensor="Line.L11.Voltages",actuator="Load.S11a.kvar");
+	on (192.168.57.2) ControllerActor(sensor="Line.L47.Voltages",actuator="Load.S47.kvar");
+ 
+}
