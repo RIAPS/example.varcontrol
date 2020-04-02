@@ -1,7 +1,7 @@
-*.key
-*.cert
-*.dot
-*.json
+simple/*.key
+simplee/*.cert
+simple/*.dot
+simple/*.json
 *.project
 Xterm.*
 *.pydevproject
