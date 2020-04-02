@@ -1,7 +1,7 @@
 simple/*.key
 simplee/*.cert
 simple/*.dot
-simple/*.json
+**/*.json
 *.project
 Xterm.*
 *.pydevproject
