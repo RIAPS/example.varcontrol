@@ -1,5 +1,5 @@
 # example.varcontrol
-Simple RIAPS application to demonstrate RIAPS sending control commands to OpenDSS simulation agent. The agent needs to be running separately in a Windows machine. 
+Simple RIAPS application to demonstrate RIAPS sending control commands to OpenDSS simulation agent. The agent needs to be running separately in a Windows machine. This application is designed to work with the model in the sample directory of the "interface.opendss" repository. For an end to end demo, please clone that repository onto the windows host machine on which the RIAPS VM is installed.
 
 ## Algorithm
 The application here reads the voltage of a specific line of the network, queries the reactive part of a particular load and then updates it according to a duty cycle. Thus, it demonstrates all the three types of messaging that the OpenDSS agent supports: Publish, Subscribe and Query.
